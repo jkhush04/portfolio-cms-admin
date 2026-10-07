@@ -1,16 +1,46 @@
-# React + Vite
+# Portfolio CMS — Admin Panel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Private admin tool for managing all portfolio content. Not linked from
+the public site — accessed directly by URL, protected by JWT login.
 
-Currently, two official plugins are available:
+## Tech Stack
+- React 18 (Vite)
+- Tailwind CSS v4
+- React Router (with a protected-route guard)
+- Axios (JWT auto-attached to every request via interceptor)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
+- Login (JWT, stored in localStorage, persists across refreshes)
+- Sidebar navigation to CRUD screens for every content type: About,
+  Skills, Projects, Experience, Testimonials, Services, Blog
+- Each list-based screen supports create, edit, and delete in one view
 
-## React Compiler
+## Running Locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+npm run dev -- --port 3001
+```
 
-## Expanding the ESLint configuration
+Requires the backend running, plus a `.env` (copy `.env.example`):
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+VITE_API_BASE_URL=http://localhost:8080
+
+
+Log in with the admin credentials configured on the backend
+(`ADMIN_USERNAME` / `ADMIN_PASSWORD`).
+
+## Building for Production
+
+```bash
+npm run build
+```
+
+## Deployment
+Deployed on [Vercel/Netlify — fill in once live], as a separate
+deployment from the public portfolio site. Its URL must be added to the
+backend's `CORS_ALLOWED_ORIGINS`.
+
+## Related Repos
+- Backend + CMS API: `portfolio-cms-backend`
+- Public portfolio site: `portfolio-cms-frontend`
