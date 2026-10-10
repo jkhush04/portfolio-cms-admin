@@ -37,7 +37,7 @@ npm run build
 ```
 
 ## Deployment
-Deployed on [Vercel/Netlify — fill in once live], as a separate
+Deployed on [Vercel/- https://portfolio-cms-admin-kappa.vercel.app/], as a separate
 deployment from the public portfolio site. Its URL must be added to the
 backend's `CORS_ALLOWED_ORIGINS`.
 
