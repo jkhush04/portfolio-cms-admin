@@ -11,6 +11,7 @@ export default function About(){
     const [loading, setLoading]=useState(true);
     const[saving ,setSaving]=useState(false);
     const[status, setStatus]=useState(null);
+    const [uploading, setUploading] = useState(false);
 
 
     useEffect(()=>{
@@ -45,6 +46,22 @@ export default function About(){
      };
 
 
+     const handleImageUpload = async (e) => {
+       const file = e.target.files[0];
+       if (!file) return;
+       setUploading(true);
+       try {
+         const data = new FormData();
+         data.append("file", file); // must match @RequestParam("file") on the backend
+         const res = await api.post("/api/upload/image", data);
+         setForm((prev) => ({ ...prev, profileImageUrl: res.data.url }));
+       } catch (err) {
+         setStatus("error-save");
+       } finally {
+         setUploading(false);
+       }
+     };
+
 
   if (loading) return <p>Loading...</p>;
 
@@ -70,6 +87,17 @@ return (
             />
           </div>
         ))}
+
+
+         <div>
+           <label className="block text-sm font-medium mb-1">Profile Image</label>
+           <input type="file" accept="image/*" onChange={handleImageUpload} />
+           {uploading && <p className="text-sm text-gray-500">Uploading...</p>}
+           {form.profileImageUrl && (
+             <img src={form.profileImageUrl} alt="Preview"
+                  className="mt-2 w-24 h-24 rounded-full object-cover" />
+           )}
+         </div>
 
         <div>
           <label className="block text-sm font-medium mb-1">Bio</label>
